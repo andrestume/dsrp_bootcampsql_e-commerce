@@ -4,7 +4,6 @@ GO
 USE dsrp_ecommerce_g13;
 GO
 
-
 --Create CLIENTES
 CREATE TABLE clientes(
 id INT PRIMARY KEY IDENTITY(1,1),
@@ -117,7 +116,16 @@ CONSTRAINT FK_tienda_id_stock_tienda FOREIGN KEY (tienda_id) REFERENCES tiendas(
 
 
 
+--Una vez creadas las tablas, identificaremos los campos que tendrán valores predeterminados y los configuraremos de esa manera
 
+--Estado del pedido: Pendiente, Enviado, Entregado, Rechazado
+ALTER TABLE pedidos
+ADD CONSTRAINT check_estado CHECK (estado IN ('Pendiente','Enviado','Entregado','Rechazado'));
 
+--Estado del pago realizado: En Proceso, Confirmado, Rechazado
+ALTER TABLE pagos
+ADD CONSTRAINT check_estado_pago CHECK (estado IN ('En Proceso','Confirmado','Rechazado'));
+
+--Estado del envío del pedido: En Proceso, Confirmado, Rechazado
 ALTER TABLE envios
-ADD CONSTRAINT check_tipo_persona CHECK (tipo_persona IN ('Persona Natural','Persona Jurídica'));
+ADD CONSTRAINT check_estado_envio CHECK (estado_envio IN ('En Preparación','En Tránsito','Entregado','Rechazado'));
