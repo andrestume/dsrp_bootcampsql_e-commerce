@@ -36,9 +36,10 @@ VALUES
 SELECT * FROM clientes
 
 -- Al generar la tabla nos dimos cuenta que todos los registros salían con las 0 horas, por lo que decidimos eliminar los datos y agregar horas aleatorias a cada cliente.
-DELETE FROM Clientes; -- para borrar los datos
+DELETE FROM clientes; -- para borrar los datos
+DBCC CHECKIDENT ('clientes', RESEED, 0); -- para reiniciar el conteo del ID y que no empiece con un número alto al ingresar nuevamente la data
+
 SELECT * FROM clientes -- para confirmar el borrado
-DBCC CHECKIDENT ('Clientes', RESEED, 0); -- para reiniciar el conteo del ID y que no empiece con un número alto al ingresar nuevamente la data
 
 -- Ahora sí a ingresar nuevamente la data en CLIENTES
 INSERT INTO Clientes (tipo_documento, numero_documento, apellido_paterno, apellido_materno, nombre, email, direccion, ciudad, departamento, telefono, fecha_nacimiento, fecha_registro)
@@ -68,6 +69,7 @@ VALUES
 ('CE', '20123456789012345688', 'Cordero', 'Paredes', 'José', 'jose.cordero@email.com', 'Callejón 8899', 'Iquitos', 'Loreto', '987654343', '1995-06-15', '2024-11-16 13:00:00'),
 ('DNI', '98765433', 'Maldonado', 'Alvarado', 'Lucía', 'lucia.maldonado@email.com', 'Jr. Los Álamos 9900', 'Trujillo', 'La Libertad', '987654344', '1992-09-10', '2024-12-20 14:30:00');
 
+SELECT * FROM clientes
 
 --Generamos registros para la tabla CLIENTES. Se especificará, para efectos didácticos, cuáles son categorías y cuáles subcategorías
 SELECT * FROM categorias
@@ -176,6 +178,9 @@ VALUES('Tienda Lima Centro', 'Av. Pardo y Aliaga 100', 'Lima', 'Lima'),
 SELECT * FROM tiendas
 
 
+DELETE FROM pedidos; -- para borrar los datos
+DBCC CHECKIDENT ('pedidos', RESEED, 0); -- para reiniciar el conteo del ID y que no empiece con un número alto al ingresar nuevamente la data
+
 --Registros de PEDIDOS:
 SELECT * FROM pedidos
 
@@ -194,7 +199,7 @@ VALUES (13, 7, '2024-12-09 13:15:00', 409.80, 'Enviado'); -- Producto ID: 6, 4 u
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
 VALUES (3, 9, '2024-12-09 15:00:00', 179.90, 'Pendiente'); -- Producto ID: 8, 1 unidad de producto (179.90 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
-VALUES (25, 10, '2024-12-10 09:30:00', 359.80, 'Enviado'); -- Producto ID: 10, 4 unidades de producto (89.95 c/u)
+VALUES (5, 10, '2024-12-10 09:30:00', 359.80, 'Enviado'); -- Producto ID: 10, 4 unidades de producto (89.95 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
 VALUES (18, 3, '2024-12-11 11:20:00', 349.90, 'Pendiente'); -- Producto ID: 9, 3 unidades de producto (116.63 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
@@ -238,7 +243,7 @@ VALUES (3, 9, '2024-12-21 13:30:00', 269.80, 'Pendiente'); -- Producto ID: 12, 2
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
 VALUES (5, 2, '2024-12-22 11:00:00', 249.90, 'Enviado'); -- Producto ID: 1, 2 unidades de producto (124.95 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
-VALUES (25, 4, '2024-12-23 10:20:00', 359.80, 'Entregado'); -- Producto ID: 5, 3 unidades de producto (119.93 c/u)
+VALUES (2, 4, '2024-12-23 10:20:00', 359.80, 'Entregado'); -- Producto ID: 5, 3 unidades de producto (119.93 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
 VALUES (9, 6, '2024-12-24 11:15:00', 239.90, 'Pendiente'); -- Producto ID: 4, 2 unidades de producto (119.95 c/u)
 INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado) 
@@ -265,3 +270,267 @@ INSERT INTO pedidos (cliente_id, tienda_id, fecha_pedido, total, estado)
 VALUES (4, 9, '2024-12-31 12:00:00', 269.90, 'Enviado'); -- Producto ID: 4, 2 unidades de producto (134.95 c/u)
 
 SELECT * FROM pedidos
+
+
+--Registros para la tabla DETALLES_PEDIDO (que tiene relación con los datos de pedidos y sus comentarios):
+SELECT * FROM detalles_pedido
+
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (1, 1, 2, 279.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (2, 3, 3, 459.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (3, 5, 4, 419.92);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (4, 2, 3, 279.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (5, 4, 2, 249.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (6, 6, 4, 409.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (7, 8, 1, 179.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (8, 10, 4, 359.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (9, 9, 3, 349.89);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (10, 11, 1, 149.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (11, 4, 3, 374.70);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (12, 12, 2, 209.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (13, 13, 4, 329.88);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (14, 3, 2, 259.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (15, 7, 1, 189.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (16, 5, 3, 359.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (17, 4, 3, 299.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (18, 6, 1, 169.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (19, 1, 2, 219.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (20, 8, 2, 249.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (21, 12, 2, 269.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (22, 9, 3, 349.89);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (23, 3, 1, 219.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (24, 5, 2, 329.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (25, 10, 2, 269.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (26, 7, 1, 179.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (27, 6, 3, 419.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (28, 12, 2, 269.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (29, 1, 2, 249.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (30, 5, 3, 359.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (31, 4, 2, 239.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (32, 9, 1, 209.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (33, 12, 1, 179.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (34, 1, 3, 299.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (35, 2, 2, 269.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (36, 8, 1, 219.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (37, 13, 4, 329.92);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (38, 3, 3, 299.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (39, 6, 2, 269.80);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (40, 11, 1, 179.90);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (41, 9, 3, 359.91);
+INSERT INTO detalles_pedido (pedido_id, producto_id, cantidad, precio) 
+VALUES (42, 4, 2, 269.80);
+
+SELECT * FROM detalles_pedido
+
+
+--Registros para Metódos de Pago:
+
+INSERT INTO metodo_pago (nombre) 
+VALUES
+('Tarjeta de crédito'),
+('Tarjeta de débito'),
+('QR Yape/Plin'),
+('Banca por internet'),
+('PayPal'),
+('Bitcoin'),
+('Transferencia bancaria');
+
+SELECT * FROM metodo_pago
+
+
+--Registros para la tabla PAGOS:
+
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (1, 4, 279.80, 'Confirmado', '2024-12-05 11:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (2, 1, 459.90, 'Confirmado', '2024-12-06 12:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (3, 2, 419.90, 'En Proceso', '2024-12-07 14:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (4, 3, 279.90, 'Confirmado', '2024-12-08 09:45:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (5, 7, 249.80, 'Confirmado', '2024-12-08 10:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (6, 4, 409.80, 'En Proceso', '2024-12-09 13:15:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (7, 5, 179.90, 'Rechazado', '2024-12-09 15:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (8, 1, 359.80, 'Confirmado', '2024-12-10 09:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (9, 2, 349.90, 'Confirmado', '2024-12-11 11:20:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (10, 4, 149.90, 'En Proceso', '2024-12-12 12:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (11, 6, 449.70, 'Confirmado', '2024-12-12 13:45:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (12, 5, 209.90, 'Confirmado', '2024-12-13 10:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (13, 1, 329.90, 'Rechazado', '2024-12-13 12:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (14, 3, 259.80, 'Confirmado', '2024-12-14 09:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (15, 7, 189.90, 'En Proceso', '2024-12-14 11:10:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (16, 2, 359.90, 'Confirmado', '2024-12-14 13:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (17, 5, 299.90, 'Confirmado', '2024-12-15 10:40:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (18, 6, 169.90, 'En Proceso', '2024-12-16 09:20:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (19, 7, 219.90, 'Confirmado', '2024-12-16 11:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (20, 3, 249.80, 'Confirmado', '2024-12-17 12:15:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (21, 1, 269.80, 'Confirmado', '2024-12-18 10:10:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (22, 2, 399.90, 'Confirmado', '2024-12-18 13:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (23, 4, 219.90, 'Rechazado', '2024-12-19 10:40:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (24, 5, 329.90, 'Confirmado', '2024-12-19 12:15:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (25, 7, 269.90, 'En Proceso', '2024-12-19 14:10:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (26, 1, 179.90, 'Confirmado', '2024-12-20 09:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (27, 3, 419.80, 'En Proceso', '2024-12-21 11:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (28, 2, 269.80, 'Confirmado', '2024-12-21 13:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (29, 4, 249.90, 'Confirmado', '2024-12-22 11:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (30, 7, 359.80, 'Confirmado', '2024-12-23 10:20:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (31, 5, 239.90, 'En Proceso', '2024-12-24 11:15:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (32, 1, 209.90, 'Confirmado', '2024-12-24 12:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (33, 6, 179.90, 'Confirmado', '2024-12-25 14:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (34, 4, 299.90, 'En Proceso', '2024-12-26 09:20:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (35, 3, 269.80, 'Rechazado', '2024-12-26 11:40:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (36, 5, 219.90, 'Confirmado', '2024-12-27 10:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (37, 1, 449.90, 'Confirmado', '2024-12-28 09:10:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (38, 2, 299.90, 'En Proceso', '2024-12-29 10:50:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (39, 3, 269.80, 'Confirmado', '2024-12-30 11:00:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (40, 6, 179.90, 'Rechazado', '2024-12-30 14:30:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (41, 4, 359.91, 'En Proceso', '2024-12-31 14:20:00');
+INSERT INTO Pagos (pedido_id, metodo_pago_id, importe, estado, fecha_pago)
+VALUES (42, 2, 269.80, 'Confirmado', '2024-12-31 16:00:00');
+
+SELECT * FROM pagos
+
+
+--Registros para la tabla ENVÍOS. Solo se generarán aquellos que tengan el estado de pago en En Proceso o Confirmado:
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (1, 'Av. Pardo y Aliaga 123', 'Lima', 'Lima', 'Referencia 1', 'En Preparación', '2024-12-05 11:30:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (2, 'Calle Las Flores 456', 'Arequipa', 'Arequipa', 'Referencia 2', 'En Preparación', '2024-12-06 12:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (3, 'Jr. Los Olivos 789', 'Cusco', 'Cusco', 'Referencia 3', 'En Preparación', '2024-12-07 14:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (4, 'Av. Universitaria 101', 'Trujillo', 'La Libertad', 'Referencia 4', 'En Tránsito', '2024-12-08 09:45:00', '2024-12-11 09:45:00');
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (5, 'Calle Las Palmas 222', 'Lima', 'Lima', 'Referencia 5', 'En Preparación', '2024-12-08 10:30:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (6, 'Jr. San Martín 444', 'Arequipa', 'Arequipa', 'Referencia 6', 'En Preparación', '2024-12-09 13:15:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (7, 'Av. Javier Prado 567', 'Lima', 'Lima', 'Referencia 7', 'Rechazado', '2024-12-09 15:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (8, 'Calle Las Acacias 678', 'Lima', 'Lima', 'Referencia 8', 'En Preparación', '2024-12-10 09:30:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (9, 'Av. Pescadores 345', 'Piura', 'Piura', 'Referencia 9', 'En Tránsito', '2024-12-11 11:20:00', '2024-12-14 11:20:00');
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (10, 'Calle Los Jazmines 223', 'Lima', 'Lima', 'Referencia 10', 'En Preparación', '2024-12-12 12:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (11, 'Av. Brasil 321', 'Lima', 'Lima', 'Referencia 11', 'En Tránsito', '2024-12-12 13:45:00', '2024-12-15 13:45:00');
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (12, 'Calle San Juan 555', 'Arequipa', 'Arequipa', 'Referencia 12', 'En Preparación', '2024-12-13 10:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (13, 'Calle Sol 888', 'Cusco', 'Cusco', 'Referencia 13', 'En Preparación', '2024-12-13 12:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (14, 'Av. Las Lomas 100', 'Lima', 'Lima', 'Referencia 14', 'En Tránsito', '2024-12-14 09:30:00', '2024-12-17 09:30:00');
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (15, 'Calle Los Pinos 232', 'Lima', 'Lima', 'Referencia 15', 'Rechazado', '2024-12-14 11:10:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (16, 'Av. Las Orquídeas 543', 'Arequipa', 'Arequipa', 'Referencia 16', 'En Preparación', '2024-12-14 13:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (17, 'Calle Los Jazmines 654', 'Lima', 'Lima', 'Referencia 17', 'En Tránsito', '2024-12-15 10:40:00', '2024-12-18 10:40:00');
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (18, 'Av. Pardo 987', 'Piura', 'Piura', 'Referencia 18', 'En Preparación', '2024-12-16 09:20:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (19, 'Calle Los Andes 432', 'Lima', 'Lima', 'Referencia 19', 'En Preparación', '2024-12-16 11:00:00', NULL);
+
+INSERT INTO envios (pedido_id, direccion_envio, ciudad_envio, departamento, referencia, estado_envio, fecha_envio, fecha_entrega)
+VALUES (20, 'Av. Los Álamos 654', 'Lima', 'Lima', 'Referencia 20', 'En Tránsito', '2024-12-17 12:15:00', '2024-12-20 12:15:00');
+
+SELECT * FROM envios
+
+
+--Registros para STOCK TIENDA:
