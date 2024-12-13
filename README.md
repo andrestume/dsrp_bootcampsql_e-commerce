@@ -43,6 +43,8 @@ Después de una revisión del caso y análisis de casuísticas del negocio, así
 
 ![Grupo-13---gestión-e-commerce-V3](https://github.com/user-attachments/assets/0e13bd3e-4b5b-4bf4-a9ca-112e666205e1)
 
+Link: https://dbdesigner.page.link/4iU9AytZMFtoPBo67
+
 ## Modelo Físico
 
 Habiendo hecho modificaciones en los modelos anteriores, el modelo físico finalmente quedó de la siguiente manera:
