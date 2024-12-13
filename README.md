@@ -39,5 +39,12 @@ Cuando se paga y confirma el pedido, se generarán datos como dirección de env�
 
 ![Grupo-13_Gestión E-Commerce_Modelo Lógico](https://github.com/user-attachments/assets/8d2fbc77-134a-4c62-b565-9a8f44328b28)
 
+Después de una revisión del caso y análisis de casuísticas del negocio, así como sugerencias de un mejor control en algunas tablas, decidimos modificar el modelo lógico inicial:
+
+![Grupo-13---gestión-e-commerce-V3](https://github.com/user-attachments/assets/0e13bd3e-4b5b-4bf4-a9ca-112e666205e1)
+
 ## Modelo Físico
 
+Habiendo hecho modificaciones en los modelos anteriores, el modelo físico finalmente quedó de la siguiente manera:
+
+![image](https://github.com/user-attachments/assets/e5173863-f666-4a17-a16b-5083583627ee)
