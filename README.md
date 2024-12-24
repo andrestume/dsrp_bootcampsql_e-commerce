@@ -32,7 +32,7 @@ Cuando se paga y confirma el pedido, se generarán datos como dirección de env�
 
 ## Modelo Entidad-Relación
 
-![V  FINAL  Grupo 13 - Trabajo 1 - E-Commerce](https://github.com/user-attachments/assets/1aba3a4e-23bd-4bf5-9ee8-0906aee615fc)
+![Nuevo Grupo 13 - Trabajo 1 - E-Commerce](https://github.com/user-attachments/assets/fbb58e1f-7978-47d3-967d-c72ca4d699de)
 
 
 ## Modelo Lógico
